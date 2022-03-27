@@ -7,9 +7,10 @@ They all have separate Directories with their own `README.md` for explanations a
 ## ROM
 **Here is a list of all the ROM related Scripts.**
 
-| Name               | Purpose                                                               |
-| ------------------ | --------------------------------------------------------------------- |
-| S2GBAStringFetcher | Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM. |
+| Name                 | Purpose                                                                  |
+| -------------------- | ------------------------------------------------------------------------ |
+| S2GBAItemInfoFetcher | Fetch and Extract Item Info Data from a The Sims 2 Game Boy Advance ROM. |
+| S2GBAStringFetcher   | Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM.    |
 
 <hr>
 

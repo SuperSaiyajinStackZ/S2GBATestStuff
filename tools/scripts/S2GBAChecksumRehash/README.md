@@ -1,4 +1,10 @@
 # S2GBAChecksumRehash
+
+<p align="center">
+	<img src="https://github.com/SuperSaiyajinStackZ/S2GBATestStuff/blob/main/resources/s2gbachecksumrehash.png" alt="Box Image"><br>
+	<b>Updates the Checksum of a The Sims 2 Game Boy Advance Savefile.</b><br>
+</p><hr>
+
 **This is one of the first Tools i started with when i got into deeper The Sims 2 Game Boy Advance things, because i was and i am still interested into Savefile Editing.**
 
 ***If you plan to edit the Savefile, then this Script might be useful for you, because editing any data of it will invalidate the Checksum and to know what would happen, see [The Checksum Notes](#checksum-notes).***
@@ -41,14 +47,19 @@
 
 ## Usage
 **The main command to run this Script is:**
-- `deno run S2GBAChecksumRehash.js -f <Filepath> -a <AskForFix y>`
+- `deno run Main.js -f <Filepath> -a <AskForFix y>`
 
 **If you want to avoid the prompt to let it ask you for permission to read / write, then this is the main command:**
-- `deno run --allow-read --allow-write S2GBAChecksumRehash.js -f <Filepath> -a <AskForFix y>`
+- `deno run --allow-read --allow-write Main.js -f <Filepath> -a <AskForFix y>`
 
 **Then here below also the Arguments you'll have to pass:**
 
 **Arguments**
 - `-f <Filepath>`: The path to the Savefile. If you use the same way as i do, you can literally do: `-f "../../../binaries/sav.sav"` **(Required)**.
 - `-a <AskForFix y>`: Do `-a y` if you want to be asked to fix the Checksum if Invalid, or `-a somethingelse` if you directly want to fix it. It will ask you if you don't provide it **(Optional)**.
+<hr>
+
+## Changelog
+**v0.1.0**
+- Added the Initial Script on 26.03.2022.
 <hr>

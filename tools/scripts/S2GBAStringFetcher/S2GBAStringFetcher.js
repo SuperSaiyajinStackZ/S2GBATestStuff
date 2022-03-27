@@ -34,12 +34,12 @@ import { S2GBAROMData } from "../../common/S2GBAROMData.js";
 	[X][2]: Related to the 0x400 / 0x3FE thing.
 */
 const LocTable = [
-	[ 0x019B4990, 0x019B4B20, 0x019B4994 ], // English.
-	[ 0x019D7784, 0x019D7924, 0x019D7788 ], // Dutch.
-	[ 0x019FAF9C, 0x019FB154, 0x019FAFA0 ], // French.
-	[ 0x01A1F7E0, 0x01A1F98C, 0x01A1F7E4 ], // German.
-	[ 0x01A460A0, 0x01A46254, 0x01A460A4 ], // Italian.
-	[ 0x01A697C0, 0x01A69978, 0x01A697C4 ]  // Spanish.
+	[ 0x19B4990, 0x19B4B20, 0x19B4994 ], // English.
+	[ 0x19D7784, 0x19D7924, 0x19D7788 ], // Dutch.
+	[ 0x19FAF9C, 0x19FB154, 0x19FAFA0 ], // French.
+	[ 0x1A1F7E0, 0x1A1F98C, 0x1A1F7E4 ], // German.
+	[ 0x1A460A0, 0x1A46254, 0x1A460A4 ], // Italian.
+	[ 0x1A697C0, 0x1A69978, 0x1A697C4 ]  // Spanish.
 ];
 
 /*
@@ -60,9 +60,6 @@ const Encoding = [
 	"á", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï", "ñ",
 	"ò", "ó", "ô", "õ", "ö", "ø", "ù", "ú", "û", "ü", "º", "ª", "…", "™", "", "®", ""
 ];
-
-/* Language Names Table. */
-const LangNames = [ "English", "Dutch", "French", "German", "Italian", "Spanish" ];
 
 
 /*
@@ -106,7 +103,7 @@ export class S2GBAStringFetcher {
 	/*
 		The constructor of this Script-Class.
 
-		Path: The path to the Savefile.
+		Path: The path to the ROM.
 		Load: If loading the data (Set to false, if you have multiple Scripts and only load it 1 time).
 	*/
 	constructor(Path, Load = true) {
@@ -117,7 +114,8 @@ export class S2GBAStringFetcher {
 	/* Some useful returns. */
 	IsGood() { return this.Good; }
 	MaxLang() { return 0x6; }
-	MaxStringID() { return 0xD86; } // 3462.
+	MaxStringID() { return 0xD86; } // 3462 Strings exist.
+	Version() { return "v0.1.0"; }
 
 	/*
 		Fetches a String from the ROM.
@@ -179,68 +177,3 @@ export class S2GBAStringFetcher {
 		Deno.writeTextFileSync(Path, RawString);
 	}
 };
-
-
-/* Argument Parser for this Script. */
-function ParseArgs() {
-	let ArgStruct = {
-		"Filename": "",
-		"Outfolder": ""
-	};
-
-	const Args = Deno.args;
-
-	if (Args.length > 0x0) {
-		let Type = "";
-
-		for (let Idx = 0x0; Idx < Args.length; Idx++) {
-			switch(Type) {
-				case "-f": // Filename.
-					ArgStruct.Filename = Args[Idx];
-					Type = "";
-					break;
-
-				case "-o": // Output.
-					ArgStruct.Outfolder = Args[Idx];
-					Type = "";
-					break;
-
-				default: // Fetch Type.
-					Type = Args[Idx];
-					break;
-			}
-		}
-	}
-
-	return ArgStruct;
-}
-
-const Args = ParseArgs();
-console.log(
-	"===================================================================\n" +
-	"S2GBAStringFetcher v0.1.0 by SuperSaiyajinStackZ - Copyright © 2022\n" +
-	"Purpose: Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM.\n" +
-	"Arguments: -f <Filepath> -o <OutputFolder>\n" +
-	"Detected Arguments:\n" +
-	"-f: " + (Args.Filename == "" ? "Not provided" : Args.Filename) + "\n" +
-	"-o: " + (Args.Outfolder == "" ? "Not provided" : Args.Outfolder) + "\n" +
-	"===================================================================\n\n"
-);
-
-/* Main function. */
-if (Args.Filename != "" && Args.Outfolder != "") {
-	let Instance = new S2GBAStringFetcher(Args.Filename);
-
-	if (Instance.IsGood()) {
-		if (Args.Outfolder[Args.Outfolder.length - 1] != "/") { // Only do this, if the last character is not / inside that argument.
-			Deno.mkdirSync(Args.Outfolder, { recursive: true }); // Make the dirs just in case.
-			for (let LangIdx = 0x0; LangIdx < Instance.MaxLang(); LangIdx++) Instance.Extract(LangIdx, (Args.Outfolder + "/" + LangNames[LangIdx] + "-Strings.txt"));
-		}
-
-	} else {
-		console.log("This is not a valid The Sims 2 GBA ROM.");
-	}
-
-} else {
-	console.log("Please provide proper Arguments.");
-}
