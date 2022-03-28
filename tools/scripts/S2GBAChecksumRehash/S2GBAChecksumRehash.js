@@ -24,24 +24,21 @@
 *         reasonable ways as different from the original version.
 */
 
-import { S2GBASAVData } from "../../common/S2GBASAVData.js";
+import { Instance as DataInstance } from "../../common/S2GBASAVData.js";
 
 
 export class S2GBAChecksumRehash {
-	/*
-		The constructor of this Script-Class.
-
-		Path: The path to the Savefile.
-		Load: If loading the data (Set to false, if you have multiple Scripts and only load it 1 time).
-	*/
-	constructor(Path, Load = true) {
-		this.Data = new S2GBASAVData(Path, Load);
-		this.Good = this.Data.IsValid();
-	}
+	constructor() { this.Initialize(); }
+	Initialize() { this.Good = DataInstance.IsValid(); }
 
 	/* Some useful returns. */
 	IsGood() { return this.Good; }
+
+	/* Some Meta data. */
 	Version() { return "v0.1.0"; }
+	Contributors() { return "SuperSaiyajinStackZ"; }
+	Name() { return "S2GBAChecksumRehash"; }
+	Purpose() { return "Updates the Checksum of a The Sims 2 Game Boy Advance Savefile."; }
 
 	/*
 		Calculates the checksum of a Type.
@@ -59,7 +56,7 @@ export class S2GBAChecksumRehash {
 					for (let Idx = 0x0; Idx < 0x18 / 2; Idx++) {
 						if (Idx == 0xE / 2) continue;
 
-						Checksum = (Checksum + this.Data.ReadData("uint16_t", Idx * 2)) % 0x10000;
+						Checksum = (Checksum + DataInstance.ReadData("uint16_t", Idx * 2)) % 0x10000;
 					}
 					break;
 
@@ -68,7 +65,7 @@ export class S2GBAChecksumRehash {
 				case 0x3:
 				case 0x4: // Slots.
 					if (this.SlotExist(Type)) {
-						for (let Idx = (Type * 0x1000) / 2; Idx < ((Type * 0x1000) + 0xFFE) / 2; Idx++) Checksum = (Checksum + this.Data.ReadData("uint16_t", Idx * 2)) % 0x10000;
+						for (let Idx = (Type * 0x1000) / 2; Idx < ((Type * 0x1000) + 0xFFE) / 2; Idx++) Checksum = (Checksum + DataInstance.ReadData("uint16_t", Idx * 2)) % 0x10000;
 					}
 					break;
 			}
@@ -88,13 +85,13 @@ export class S2GBAChecksumRehash {
 		if (this.IsGood() && Type >= 0x0 && Type <= 0x4) {
 			switch(Type) {
 				case 0x0: // Settings.
-					return this.Data.ReadData("uint16_t", 0xE) == this.Calc(Type);
+					return DataInstance.ReadData("uint16_t", 0xE) == this.Calc(Type);
 
 				case 0x1:
 				case 0x2:
 				case 0x3:
 				case 0x4: // Slots.
-					if (this.SlotExist(Type)) return this.Data.ReadData("uint16_t", (Type * 0x1000) + 0xFFE) == this.Calc(Type);
+					if (this.SlotExist(Type)) return DataInstance.ReadData("uint16_t", (Type * 0x1000) + 0xFFE) == this.Calc(Type);
 			}
 		}
 
@@ -107,7 +104,7 @@ export class S2GBAChecksumRehash {
 		Slot: The Slot to check ( 1 - 4 ).
 	*/
 	SlotExist(Slot) {
-		if (this.IsGood() && Slot >= 0x1 && Slot <= 0x4) return this.Data.ReadData("uint8_t", (Slot * 0x1000) + 0xD) != 0x0;
+		if (this.IsGood() && Slot >= 0x1 && Slot <= 0x4) return DataInstance.ReadData("uint8_t", (Slot * 0x1000) + 0xD) != 0x0;
 		return false;
 	}
 
@@ -122,14 +119,14 @@ export class S2GBAChecksumRehash {
 		if (this.IsGood() && Type >= 0x0 && Type <= 0x4) {
 			switch(Type) {
 				case 0x0: // Settings.
-					this.Data.WriteData("uint16_t", 0xE, this.Calc(Type));
+					DataInstance.WriteData("uint16_t", 0xE, this.Calc(Type));
 					break;
 
 				case 0x1:
 				case 0x2:
 				case 0x3:
 				case 0x4: // Slots.
-					this.Data.WriteData("uint16_t", (Type * 0x1000) + 0xFFE, this.Calc(Type));
+					DataInstance.WriteData("uint16_t", (Type * 0x1000) + 0xFFE, this.Calc(Type));
 					break;
 			}
 		}
@@ -140,5 +137,7 @@ export class S2GBAChecksumRehash {
 
 		Path: The path to where to write the file.
 	*/
-	WriteBack(Path) { this.Data.WriteBack(Path, false); }
+	WriteBack(Path) { DataInstance.WriteBack(Path, false); }
 };
+
+export let Instance = new S2GBAChecksumRehash();

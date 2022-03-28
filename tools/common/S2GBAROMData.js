@@ -29,15 +29,7 @@ let Buffer = undefined, View = undefined, ChangesMade = false, Size = 0x0, Valid
 
 
 export class S2GBAROMData {
-	/*
-		The constructor of this class.
-
-		Path: The path to the ROM.
-		ShouldLoad: If the data should be loaded at constructor (true) or not (false). True by default.
-	*/
-	constructor(Path, ShouldLoad = true) {
-		if (ShouldLoad) this.Load(Path);
-	}
+	constructor() { this.ResetData(); }
 
 	/*
 		Load a ROM.
@@ -214,3 +206,5 @@ export class S2GBAROMData {
 		if (Unload) this.ResetData();
 	}
 };
+
+export let Instance = new S2GBAROMData(); // Initialize as base instance.

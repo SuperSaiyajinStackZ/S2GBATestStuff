@@ -24,8 +24,8 @@
 *         reasonable ways as different from the original version.
 */
 
-import { S2GBAROMData } from "../../common/S2GBAROMData.js";
-import { S2GBAStringFetcher } from "../S2GBAStringFetcher/S2GBAStringFetcher.js";
+import { Instance as DataInstance } from "../../common/S2GBAROMData.js";
+import { Instance as StringFetcher } from "../S2GBAStringFetcher/S2GBAStringFetcher.js";
 
 
 /*
@@ -46,21 +46,18 @@ function FormatID(ID) {
 
 
 export class S2GBAItemInfoFetcher {
-	/*
-		The constructor of this Script-Class.
-
-		Path: The path to the ROM.
-	*/
-	constructor(Path) {
-		this.StringFetcher = new S2GBAStringFetcher(Path, true);
-		this.Data = new S2GBAROMData(Path, false);
-		this.Good = this.Data.IsValid();
-	}
+	constructor() { this.Initialize(); }
+	Initialize() { this.Good = DataInstance.IsValid(); }
 
 	/* Some useful returns. */
 	IsGood() { return this.Good; }
 	MaxIDs() { return 0xE3; } // Looks like this + everything above is not an actual Item, however 0xE6 is an empty Item ID.
+
+	/* Some Meta data. */
 	Version() { return "v0.1.0"; }
+	Contributors() { return "SuperSaiyajinStackZ"; }
+	Name() { return "S2GBAItemInfoFetcher"; }
+	Purpose() { return "Fetch and Extract Item Info Data from a The Sims 2 Game Boy Advance ROM."; }
 
 	/*
 		Fetches Info about an Item of a specific ID and a Language.
@@ -76,13 +73,13 @@ export class S2GBAItemInfoFetcher {
 			Unknown: [ 0x0, 0x0, 0x0 ] // 3 Unknown Values right now.
 		};
 
-		if (this.IsGood() && (ItemID >= 0x0 && ItemID < this.MaxIDs()) && (LanguageID >= 0x0 && LanguageID < this.StringFetcher.MaxLang())) {
+		if (this.IsGood() && (ItemID >= 0x0 && ItemID < this.MaxIDs()) && (LanguageID >= 0x0 && LanguageID < StringFetcher.MaxLang())) {
 			const Offs = 0x72820 + (ItemID * 0x14);
 
-			ItemStruct.ItemNameID = this.Data.ReadData("uint32_t", Offs);
-			ItemStruct.ItemName = this.StringFetcher.Fetch(LanguageID, ItemStruct.ItemNameID);
-			ItemStruct.BuyPrice = this.Data.ReadData("uint32_t", Offs + 0x4);
-			for (let Idx = 0x0; Idx < 0x3; Idx++) ItemStruct.Unknown[Idx] = this.Data.ReadData("uint32_t", Offs + 0x8 + (Idx * 0x4));
+			ItemStruct.ItemNameID = DataInstance.ReadData("uint32_t", Offs);
+			ItemStruct.ItemName = StringFetcher.Fetch(LanguageID, ItemStruct.ItemNameID);
+			ItemStruct.BuyPrice = DataInstance.ReadData("uint32_t", Offs + 0x4);
+			for (let Idx = 0x0; Idx < 0x3; Idx++) ItemStruct.Unknown[Idx] = DataInstance.ReadData("uint32_t", Offs + 0x8 + (Idx * 0x4));
 		}
 
 		return ItemStruct;
@@ -117,3 +114,5 @@ export class S2GBAItemInfoFetcher {
 		Deno.writeTextFileSync(Path, RawString);
 	}
 };
+
+export let Instance = new S2GBAItemInfoFetcher();

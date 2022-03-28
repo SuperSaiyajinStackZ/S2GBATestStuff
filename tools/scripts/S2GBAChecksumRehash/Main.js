@@ -24,7 +24,8 @@
 *         reasonable ways as different from the original version.
 */
 
-import { S2GBAChecksumRehash } from "./S2GBAChecksumRehash.js";
+import { Instance as DataInstance } from "../../common/S2GBASAVData.js";
+import { Instance as Script } from "./S2GBAChecksumRehash.js"
 
 
 function ParseArgs() {
@@ -62,26 +63,29 @@ function ParseArgs() {
 
 const Args = ParseArgs();
 console.log(
-	"=====================================================================\n" +
-	"S2GBAChecksumRehash v0.1.0 by SuperSaiyajinStackZ - Copyright © 2022\n" +
-	"Purpose: Updates the Checksum of a The Sims 2 Game Boy Advance Savefile.\n" +
+	"===================================================================\n" +
+	"Script Name: " + Script.Name() + "\n" +
+	"Version: " + Script.Version() + "\n" +
+	"Contributors: " + Script.Contributors() + "\n" +
+	"Purpose: " + Script.Purpose() + "\n\n" +
 	"Arguments: -f <Filepath> -a <AskForFix y>\n" +
 	"Detected Arguments:\n" +
 	"-f: " + (Args.Filename == "" ? "Not provided" : Args.Filename) + "\n" +
-	"-a: " + (Args.AskForFix ? "Yes" : "No") + "\n" +
-	"=====================================================================\n\n"
+	"-a: " + (Args.AskForFix ? "True" : "False") + "\n" +
+	"===================================================================\n\n"
 );
 
 if (Args.Filename != "") {
-	let Instance = new S2GBAChecksumRehash(Args.Filename);
+	DataInstance.Load(Args.Filename);
+	Script.Initialize();
 
-	if (Instance.IsGood()) {
+	if (Script.IsGood()) {
 		let ChangesMade = false; // We only want to write a patched savefile back, if a checksum got updated.
 
 		for (let Type = 0x0; Type < 0x5; Type++) {
 			switch(Type) {
 				case 0x0: { // Settings.
-					const Valid = Instance.Valid(Type);
+					const Valid = Script.Valid(Type);
 
 					if (Valid) console.log("The Settings Checksum is valid!");
 					else {
@@ -92,7 +96,7 @@ if (Args.Filename != "") {
 
 						if (Res != "y") console.log("The Settings Header Checksum did not get fixed!");
 						else {
-							Instance.FixChecksum(Type);
+							Script.FixChecksum(Type);
 							console.log("Fixed the Settings Header Checksum!");
 							ChangesMade = true;
 						}
@@ -105,9 +109,9 @@ if (Args.Filename != "") {
 				case 0x2:
 				case 0x3:
 				case 0x4: { // Slots.
-					if (!Instance.SlotExist(Type)) console.log("Slot " + Type.toString() + " does not exist.");
+					if (!Script.SlotExist(Type)) console.log("Slot " + Type.toString() + " does not exist.");
 					else {
-						const Valid = Instance.Valid(Type);
+						const Valid = Script.Valid(Type);
 
 						if (Valid) console.log("The Slot " + Type.toString() + "'s Checksum is valid!");
 						else {
@@ -118,7 +122,7 @@ if (Args.Filename != "") {
 
 							if (Res != "y") console.log("The Slot Checksum did not get fixed!");
 							else {
-								Instance.FixChecksum(Type);
+								Script.FixChecksum(Type);
 								console.log("Fixed the Slot Checksum!");
 								ChangesMade = true;
 							}
@@ -130,7 +134,7 @@ if (Args.Filename != "") {
 			}
 		}
 
-		if (ChangesMade) Instance.WriteBack(Args.Filename);
+		if (ChangesMade) Script.WriteBack(Args.Filename);
 		
 	} else {
 		console.log("This is not a valid The Sims 2 GBA Savefile.");

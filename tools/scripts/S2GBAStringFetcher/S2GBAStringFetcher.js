@@ -24,7 +24,7 @@
 *         reasonable ways as different from the original version.
 */
 
-import { S2GBAROMData } from "../../common/S2GBAROMData.js";
+import { Instance as DataInstance } from "../../common/S2GBAROMData.js";
 
 /*
 	Language String related Locations.
@@ -100,22 +100,19 @@ function FormatID(ID) {
 
 
 export class S2GBAStringFetcher {
-	/*
-		The constructor of this Script-Class.
-
-		Path: The path to the ROM.
-		Load: If loading the data (Set to false, if you have multiple Scripts and only load it 1 time).
-	*/
-	constructor(Path, Load = true) {
-		this.Data = new S2GBAROMData(Path, Load);
-		this.Good = this.Data.IsValid();
-	}
+	constructor() { this.Initialize(); }
+	Initialize() { this.Good = DataInstance.IsValid(); }
 
 	/* Some useful returns. */
 	IsGood() { return this.Good; }
 	MaxLang() { return 0x6; }
 	MaxStringID() { return 0xD86; } // 3462 Strings exist.
+
+	/* Some Meta data. */
 	Version() { return "v0.1.0"; }
+	Contributors() { return "SuperSaiyajinStackZ"; }
+	Name() { return "S2GBAStringFetcher"; }
+	Purpose() { return "Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM."; }
 
 	/*
 		Fetches a String from the ROM.
@@ -135,20 +132,20 @@ export class S2GBAStringFetcher {
 		let StringArray = [ ];
 	
 		/* Init initial Shift Address + Shift Value. */
-		ShiftAddr = (Loc[0] + this.Data.ReadData("uint32_t", (StringID * 0x4) + Loc[1]));
-		ShiftVal = this.Data.ReadData("uint32_t", ShiftAddr);
+		ShiftAddr = (Loc[0] + DataInstance.ReadData("uint32_t", (StringID * 0x4) + Loc[1]));
+		ShiftVal = DataInstance.ReadData("uint32_t", ShiftAddr);
 	
 		do {
 			Character = 0x100;
 	
 			do {
-				Character = this.Data.ReadData("uint16_t", (Character * 0x4) + Loc[2] - (((ShiftVal >> Counter) % 0x2) == 0x0 ? 0x400 : 0x3FE));
+				Character = DataInstance.ReadData("uint16_t", (Character * 0x4) + Loc[2] - (((ShiftVal >> Counter) % 0x2) == 0x0 ? 0x400 : 0x3FE));
 				Counter++;
 	
 				if (Counter == 0x8) {
 					Counter = 0x0;
 					ShiftAddr++;
-					ShiftVal = this.Data.ReadData("uint32_t", ShiftAddr);
+					ShiftVal = DataInstance.ReadData("uint32_t", ShiftAddr);
 				}
 			} while(0xFF < Character);
 	
@@ -177,3 +174,5 @@ export class S2GBAStringFetcher {
 		Deno.writeTextFileSync(Path, RawString);
 	}
 };
+
+export let Instance = new S2GBAStringFetcher();

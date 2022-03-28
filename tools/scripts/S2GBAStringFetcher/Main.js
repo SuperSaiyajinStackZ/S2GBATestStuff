@@ -24,7 +24,8 @@
 *         reasonable ways as different from the original version.
 */
 
-import { S2GBAStringFetcher } from "./S2GBAStringFetcher.js";
+import { Instance as DataInstance } from "../../common/S2GBAROMData.js";
+import { Instance as Script } from "./S2GBAStringFetcher.js";
 
 /* Language Names Table. */
 const LangNames = [ "English", "Dutch", "French", "German", "Italian", "Spanish" ];
@@ -66,8 +67,10 @@ function ParseArgs() {
 const Args = ParseArgs();
 console.log(
 	"===================================================================\n" +
-	"S2GBAStringFetcher v0.1.0 by SuperSaiyajinStackZ - Copyright © 2022\n" +
-	"Purpose: Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM.\n" +
+	"Script Name: " + Script.Name() + "\n" +
+	"Version: " + Script.Version() + "\n" +
+	"Contributors: " + Script.Contributors() + "\n" +
+	"Purpose: " + Script.Purpose() + "\n\n" +
 	"Arguments: -f <Filepath> -o <OutputFolder>\n" +
 	"Detected Arguments:\n" +
 	"-f: " + (Args.Filename == "" ? "Not provided" : Args.Filename) + "\n" +
@@ -76,12 +79,13 @@ console.log(
 );
 
 if (Args.Filename != "" && Args.Outfolder != "") {
-	let Instance = new S2GBAStringFetcher(Args.Filename);
+	DataInstance.Load(Args.Filename);
+	Script.Initialize();
 
-	if (Instance.IsGood()) {
+	if (Script.IsGood()) {
 		if (Args.Outfolder[Args.Outfolder.length - 1] != "/") { // Only do this, if the last character is not / inside that argument.
 			Deno.mkdirSync(Args.Outfolder, { recursive: true }); // Make the dirs just in case.
-			for (let LangIdx = 0x0; LangIdx < Instance.MaxLang(); LangIdx++) Instance.Extract(LangIdx, (Args.Outfolder + "/" + LangNames[LangIdx] + "-Strings.txt"));
+			for (let LangIdx = 0x0; LangIdx < Script.MaxLang(); LangIdx++) Script.Extract(LangIdx, (Args.Outfolder + "/" + LangNames[LangIdx] + "-Strings.txt"));
 		}
 
 	} else {
