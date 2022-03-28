@@ -47,7 +47,10 @@ function FormatID(ID) {
 
 export class S2GBAItemInfoFetcher {
 	constructor() { this.Initialize(); }
-	Initialize() { this.Good = DataInstance.IsValid(); }
+	Initialize() {
+		this.Good = DataInstance.IsValid();
+		StringFetcher.Initialize();
+	}
 
 	/* Some useful returns. */
 	IsGood() { return this.Good; }
