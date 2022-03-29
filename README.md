@@ -31,3 +31,10 @@
 **The Credits for this Repository:**
 - [SuperSaiyajinStackZ](https://github.com/SuperSaiyajinStackZ): Maintaining this Repository and all the Scripts.
 <hr>
+
+# Other Things
+- You are interested into some Research Documentation for *The Sims 2 - Game Boy Advance*? then checkout the [Sim2Wiki by Sim2Team](https://sim2team.github.io/wiki/research/sims2gba) Research Section for ***The Sims 2 - Game Boy Advance***.
+- You are also interested into Test Stuff for `The Sims 2 - Nintendo DS`? then checkout the [S2DSTestStuff](https://github.com/SuperSaiyajinStackZ/S2DSTestStuff) Repository.
+
+***I also plan to create a German Documentation about `The Sims 2 - Game Boy Advance` in the future, which would be [on my main site](https://supersaiyajinstackz.github.io/).***
+<hr>

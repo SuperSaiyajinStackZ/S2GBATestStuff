@@ -34,16 +34,16 @@
 
 ## Usage
 **The main command to run this Script is:**
-- `deno run Main.js -f <Filepath> -o <OutFolder>`
+- `deno run Main.js -f <Filepath> -o <OutputFolder>`
 
 **If you want to avoid the prompt to let it ask you for permission to read / write, then this is the main command:**
-- `deno run --allow-read --allow-write Main.js -f <Filepath> -o <OutFolder>`
+- `deno run --allow-read --allow-write Main.js -f <Filepath> -o <OutputFolder>`
 
 **Then here below also the Arguments you'll have to pass:**
 
 **Arguments**
 - `-f <Filepath>`: The path to the ROM. If you use the same way as i do, you can literally do: `-f "../../../binaries/rom.gba"` **(Required)**.
-- `-o <OutFolder>`: The folder to where to extract the Strings to. You can just use `-o "Strings"` to extract them into the current Directory inside `Strings/` **(Required)**.
+- `-o <OutputFolder>`: The folder to where to extract the Strings to. You can just use `-o "Strings"` to extract them into the current Directory inside `Strings/` **(Required)**.
 <hr>
 
 ## Changelog

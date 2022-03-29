@@ -66,7 +66,7 @@ export class S2GBAItemInfoFetcher {
 		Fetches Info about an Item of a specific ID and a Language.
 
 		LanguageID: The Language to fetch the name from (See S2GBAStringFetcher's LocTable Comments for the Language Indexes).
-		ItemID: The Item ID to fetch ( 0x0 - 0xE3 ).
+		ItemID: The Item ID to fetch ( 0x0 - 0xE2 ).
 	*/
 	Fetch(LanguageID, ItemID) {
 		let ItemStruct = {
