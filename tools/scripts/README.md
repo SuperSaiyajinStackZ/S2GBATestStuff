@@ -22,3 +22,13 @@ They all have separate Directories with their own `README.md` for explanations a
 | S2GBAChecksumRehash | Updates the Checksum of a The Sims 2 Game Boy Advance Savefile. |
 
 <hr>
+
+## UTILITY
+**Here is a list of all the Utility related Scripts.**
+
+| Name               | Purpose                                                         |
+| ------------------ | --------------------------------------------------------------- |
+| S2GBABytesToString | Convert Bytes into a The Sims 2 Game Boy Advance String.        |
+| S2GBAStringToBytes | Convert a String into a The Sims 2 Game Boy Advance Byte Array. |
+
+<hr>

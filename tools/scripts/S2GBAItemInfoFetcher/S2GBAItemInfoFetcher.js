@@ -28,23 +28,6 @@ import { Instance as DataInstance } from "../../common/S2GBAROMData.js";
 import { Instance as StringFetcher } from "../S2GBAStringFetcher/S2GBAStringFetcher.js";
 
 
-/*
-	Formats an ID into a 3 digit padding number string.
-
-	ID: The ID to format.
-*/
-function FormatID(ID) {
-	let Num = ID.toString();
-
-	/* Padding to 3 digits. */
-	if (ID < 10)        Num = "00" + ID.toString();
-	else if (ID < 100)  Num =  "0" + ID.toString();
-	else                Num =         ID.toString();
-
-	return Num;
-}
-
-
 export class S2GBAItemInfoFetcher {
 	constructor() { this.Initialize(); }
 	Initialize() {
@@ -100,7 +83,7 @@ export class S2GBAItemInfoFetcher {
 		for (let Idx = 0x0; Idx < this.MaxIDs(); Idx++) {
 			const ItemData = this.Fetch(LanguageID, Idx);
 
-			RawString += "=== " + FormatID(Idx) + " ===\n";
+			RawString += "=== " + Idx.toString(10).padStart(3, "0") + " ===\n"; // === XXX ===.
 			RawString += "Item Name:      " + ItemData.ItemName + "\n";
 			RawString += "Item Name ID:   0x" + ItemData.ItemNameID.toString(16).toUpperCase() + "\n";
 			RawString += "Item Buy Price: " + ItemData.BuyPrice.toString() + "\n";
