@@ -9,6 +9,7 @@ They all have separate Directories with their own `README.md` for explanations a
 
 | Name                 | Purpose                                                                  |
 | -------------------- | ------------------------------------------------------------------------ |
+| S2GBADialogFetcher   | Fetch and Extract the Dialogs from a The Sims 2 Game Boy Advance ROM.    |
 | S2GBAItemInfoFetcher | Fetch and Extract Item Info Data from a The Sims 2 Game Boy Advance ROM. |
 | S2GBAStringFetcher   | Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM.    |
 
