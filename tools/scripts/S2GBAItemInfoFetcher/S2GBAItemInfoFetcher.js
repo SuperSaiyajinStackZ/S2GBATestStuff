@@ -40,7 +40,7 @@ export class S2GBAItemInfoFetcher {
 	MaxIDs() { return 0xE3; } // Looks like this + everything above is not an actual Item, however 0xE6 is an empty Item ID.
 
 	/* Some Meta data. */
-	Version() { return "v0.1.0"; }
+	Version() { return "v0.2.0"; }
 	Contributors() { return "SuperSaiyajinStackZ"; }
 	Name() { return "S2GBAItemInfoFetcher"; }
 	Purpose() { return "Fetch and Extract Item Info Data from a The Sims 2 Game Boy Advance ROM."; }
@@ -72,12 +72,12 @@ export class S2GBAItemInfoFetcher {
 	}
 
 	/*
-		Extracts all Item Data of a specific Language into a Text file.
+		Extracts all Item Data of a specific Language into a Raw String.
 
 		LanguageID: The Language Index (See S2GBAStringFetcher's LocTable Comments for the Language Indexes).
-		Path: The path to where to store the file.
 	*/
-	Extract(LanguageID, Path) {
+	Extract(LanguageID) {
+		if (LanguageID >= StringFetcher.MaxLang()) return "";
 		let RawString = "";
 
 		for (let Idx = 0x0; Idx < this.MaxIDs(); Idx++) {
@@ -97,7 +97,7 @@ export class S2GBAItemInfoFetcher {
 			if (Idx < this.MaxIDs() - 1) RawString += "\n\n";
 		}
 
-		Deno.writeTextFileSync(Path, RawString);
+		return RawString;
 	}
 };
 

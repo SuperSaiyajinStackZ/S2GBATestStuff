@@ -83,7 +83,7 @@ export class S2GBAStringFetcher {
 	MaxStringID() { return 0xD86; } // 3462 Strings exist.
 
 	/* Some Meta data. */
-	Version() { return "v0.1.0"; }
+	Version() { return "v0.2.0"; }
 	Contributors() { return "SuperSaiyajinStackZ"; }
 	Name() { return "S2GBAStringFetcher"; }
 	Purpose() { return "Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM."; }
@@ -130,13 +130,12 @@ export class S2GBAStringFetcher {
 	}
 
 	/*
-		Extracts all 3462 Strings of a specific Language into a Text file.
+		Extracts all 3462 Strings of a specific Language into a Raw String.
 
 		Language: The Language Index ( 0 - 5 ).
-		Path: The path to where to store the file.
 	*/
-	Extract(Language, Path) {
-		if (Language >= this.MaxLang()) return;
+	Extract(Language) {
+		if (Language >= this.MaxLang()) return "";
 		let RawString = "";
 
 		for (let Idx = 0x0; Idx < this.MaxStringID(); Idx++) {
@@ -145,7 +144,7 @@ export class S2GBAStringFetcher {
 			if (Idx < this.MaxStringID() - 1) RawString += "\n";
 		}
 
-		Deno.writeTextFileSync(Path, RawString);
+		return RawString;
 	}
 };
 

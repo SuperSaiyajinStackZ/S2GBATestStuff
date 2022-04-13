@@ -31,19 +31,18 @@ let Buffer = undefined, View = undefined, ChangesMade = false, Size = 0x0, Valid
 export class S2GBASAVData {
 	constructor() { this.ResetData(); }
 
-	/*
-		Load a Savefile.
+		/*
+		Load an Uint8Array Buffer for the SAV Data.
 
-		Path: The path to the Savefile.
+		DataBuffer: An Uint8Array containing the SAV Data.
 	*/
-	Load(Path) {
+	Load(DataBuffer) {
 		this.ResetData();
-		const Info = Deno.statSync(Path);
-
-		/* Ensure Savefile Size is correct. */
-		if (Info.size == 0x10000 || Info.size == 0x20000) {
-			Size = Info.size;
-			Buffer = Deno.readFileSync(Path);
+		
+		/* Check that the DataBuffer is not undefined and has the proper size. */
+		if ((DataBuffer != undefined) && (DataBuffer.length == 0x10000 || DataBuffer.length == 0x20000)) {
+			Buffer = DataBuffer;
+			Size = Buffer.length;
 			View = new DataView(Buffer.buffer);
 
 			/* Check the Identifier of the Savefile. */
@@ -189,18 +188,7 @@ export class S2GBASAVData {
 		else       this.WriteData("uint8_t", Offs, (this.ReadData("uint8_t", Offs) & 0x0F) | (Data << 0x4)); // Bit 4 - 7.
 	}
 
-	/*
-		Writing the active Buffer back to a file.
-
-		Path: The path where to write the file to.
-		Unload: If unloading the whole data or not (false by default).
-	*/
-	WriteBack(Path, Unload = false) {
-		if (View == undefined) return;
-
-		Deno.writeFileSync(Path, Buffer);
-		if (Unload) this.ResetData();
-	}
+	GetUint8Array() { return Buffer; }
 };
 
 export let Instance = new S2GBASAVData(); // Initialize as base instance.

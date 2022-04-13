@@ -12,10 +12,10 @@
 
 ## Script Credits
 - Contributors: [SuperSaiyajinStackZ](https://github.com/SuperSaiyajinStackZ)
-- Last Updated: 26.03.2022
+- Last Updated: 13.04.2022
 - Purpose: Updates the Checksum of a The Sims 2 Game Boy Advance Savefile.
 - Type: Savefile Scripts
-- Version: v0.1.0
+- Version: v0.2.0
 <hr>
 
 ## Checksum Location
@@ -62,4 +62,7 @@
 ## Changelog
 **v0.1.0**
 - Added the Initial Script on 26.03.2022.
+
+**v0.2.0**
+- Reworked how the S2GBASAVData stuff works for this Script on 13.04.2022.
 <hr>

@@ -26,10 +26,10 @@
 
 ## Script Credits
 - Contributors: [SuperSaiyajinStackZ](https://github.com/SuperSaiyajinStackZ)
-- Last Updated: 26.03.2022
+- Last Updated: 13.04.2022
 - Purpose: Fetch and Extract the Strings from a The Sims 2 Game Boy Advance ROM.
 - Type: ROM Scripts
-- Version: v0.1.0
+- Version: v0.2.0
 <hr>
 
 ## Usage
@@ -49,4 +49,7 @@
 ## Changelog
 **v0.1.0**
 - Added the Initial Script on 26.03.2022.
+
+**v0.2.0**
+- Reworked how the S2GBAROMData stuff works for this Script on 13.04.2022.
 <hr>

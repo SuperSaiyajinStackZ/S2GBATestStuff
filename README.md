@@ -16,6 +16,7 @@
 - **resources**: This Directory contains some resources for this Repository.
 - **tools**
 	- **common**
+		- ***DenoHelper.js***: This file handles the Deno related things, such as getting an Uint8Array Buffer from a local file, writing data to files etc.
 		- ***S2GBAROMData.js***: This file handles the ROM Data, such as checking for validation, reading and writing to it's Buffer etc.
 		- ***S2GBASAVData.js***: Same as above, but for the Savefile instead.
 	- **scripts**
@@ -35,6 +36,7 @@
 # Other Things
 - You are interested into some Research Documentation for *The Sims 2 - Game Boy Advance*? then checkout the [Sim2Wiki by Sim2Team](https://sim2team.github.io/wiki/research/sims2gba) Research Section for ***The Sims 2 - Game Boy Advance***.
 - You are also interested into Test Stuff for `The Sims 2 - Nintendo DS`? then checkout the [S2DSTestStuff](https://github.com/SuperSaiyajinStackZ/S2DSTestStuff) Repository.
+- A Web version for the Scripts will probably be available soon:tm: too on [S2GBATool](https://github.com/Sim2Team/s2gbatool).
 
 ***I also plan to create a German Documentation about `The Sims 2 - Game Boy Advance` in the future, which would be [on my main site](https://supersaiyajinstackz.github.io/).***
 <hr>

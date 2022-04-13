@@ -35,7 +35,7 @@ export class S2GBAChecksumRehash {
 	IsGood() { return this.Good; }
 
 	/* Some Meta data. */
-	Version() { return "v0.1.0"; }
+	Version() { return "v0.2.0"; }
 	Contributors() { return "SuperSaiyajinStackZ"; }
 	Name() { return "S2GBAChecksumRehash"; }
 	Purpose() { return "Updates the Checksum of a The Sims 2 Game Boy Advance Savefile."; }
@@ -131,13 +131,6 @@ export class S2GBAChecksumRehash {
 			}
 		}
 	}
-
-	/*
-		A wrapper for S2SAVData.WriteBack().
-
-		Path: The path to where to write the file.
-	*/
-	WriteBack(Path) { DataInstance.WriteBack(Path, false); }
 };
 
 export let Instance = new S2GBAChecksumRehash();

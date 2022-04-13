@@ -24,6 +24,7 @@
 *         reasonable ways as different from the original version.
 */
 
+import { DenoHelper } from "../../common/DenoHelper.js";
 import { Instance as DataInstance } from "../../common/S2GBASAVData.js";
 import { Instance as Script } from "./S2GBAChecksumRehash.js"
 
@@ -76,7 +77,7 @@ console.log(
 );
 
 if (Args.Filename != "") {
-	DataInstance.Load(Args.Filename);
+	DataInstance.Load(DenoHelper.FileToU8Array(Args.Filename));
 	Script.Initialize();
 
 	if (Script.IsGood()) {
@@ -134,7 +135,7 @@ if (Args.Filename != "") {
 			}
 		}
 
-		if (ChangesMade) Script.WriteBack(Args.Filename);
+		if (ChangesMade) DenoHelper.WriteBinaryToFile(DataInstance.GetUint8Array(), Args.Filename);
 		
 	} else {
 		console.log("This is not a valid The Sims 2 GBA Savefile.");
