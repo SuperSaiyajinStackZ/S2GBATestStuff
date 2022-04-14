@@ -1,7 +1,7 @@
 # Scripts
 **This is the Directory, where all the main Scripts are stored.**
 
-They all have separate Directories with their own `README.md` for explanations and their `ScriptName.js` file.
+They all have separate Directories with their own `README.md` for explanations, a `Main.js` for a example usage and their `ScriptName.js` file for the implementation.
 <hr>
 
 ## ROM

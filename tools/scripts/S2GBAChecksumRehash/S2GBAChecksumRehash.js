@@ -71,7 +71,7 @@ export class S2GBAChecksumRehash {
 			}
 		}
 
-		return (0x10000 - Checksum) % 0x10000
+		return (0x10000 - Checksum) % 0x10000;
 	}
 
 	/*
