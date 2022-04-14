@@ -27,6 +27,7 @@
 import { DenoHelper } from "../../common/DenoHelper.js";
 import { Instance as DataInstance } from "../../common/S2GBAROMData.js";
 import { Instance as Script } from "./S2GBAItemInfoFetcher.js"
+import { Instance as StringFetcher } from "../S2GBAStringFetcher/S2GBAStringFetcher.js";
 
 /* Language Names Table. */
 const LangNames = [ "English", "Dutch", "French", "German", "Italian", "Spanish" ];
@@ -81,6 +82,7 @@ console.log(
 
 if (Args.Filename != "" && Args.Outfolder != "") {
 	DataInstance.Load(DenoHelper.FileToU8Array(Args.Filename));
+	StringFetcher.Initialize();
 	Script.Initialize();
 
 	if (Script.IsGood()) {

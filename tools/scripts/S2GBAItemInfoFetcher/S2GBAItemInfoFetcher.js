@@ -30,10 +30,7 @@ import { Instance as StringFetcher } from "../S2GBAStringFetcher/S2GBAStringFetc
 
 export class S2GBAItemInfoFetcher {
 	constructor() { this.Initialize(); }
-	Initialize() {
-		this.Good = DataInstance.IsValid();
-		StringFetcher.Initialize();
-	}
+	Initialize() { this.Good = DataInstance.IsValid(); }
 
 	/* Some useful returns. */
 	IsGood() { return this.Good; }

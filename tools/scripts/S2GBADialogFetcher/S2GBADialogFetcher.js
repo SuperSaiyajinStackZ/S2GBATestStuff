@@ -32,14 +32,11 @@ const DataStart = 0x5CF78;
 
 export class S2GBADialogFetcher {
 	constructor() { this.Initialize(); }
-	Initialize() {
-		this.Good = DataInstance.IsValid();
-		StringFetcher.Initialize();
-	}
+	Initialize() { this.Good = DataInstance.IsValid(); }
 
 	/* Some useful returns. */
 	IsGood() { return this.Good; }
-	MaxLang() { return 0x6; }
+	MaxLang() { return StringFetcher.MaxLang(); }
 	MaxDialogs() { return 0x371; } // 881 Dialogs exist.
 
 	/* Some Meta data. */
